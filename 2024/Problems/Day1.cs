@@ -31,5 +31,70 @@
     */
     public class Day1
     {
+        public static int FindTotalDistance(string[] file)
+        {
+            List<int> leftList = [];
+            List<int> rightList = [];
+
+            foreach (var line in file)
+            {
+                var splitLine = line.Split('\t');
+                leftList.Add(int.Parse(splitLine[0]));
+                rightList.Add(int.Parse(splitLine[1]));
+            }
+
+            leftList.Sort();
+            rightList.Sort();
+
+            int totalDist = 0;
+            for (int i = 0; i < leftList.Count; i++)
+            {
+                totalDist += Math.Abs(leftList[i] - rightList[i]);
+            }
+
+            return totalDist;
+        }
+
+        public static int GetSimilarityScore(string[] file)
+        {
+            Dictionary<int, int> leftList = []; // HashSet since we only care whether the left side has at least one instance of a number
+            Dictionary<int, int> rightList = []; // Map each value in the right list to the number of times it appears
+
+            foreach (var line in file)
+            {
+                var splitLine = line.Split('\t');
+                var left = int.Parse(splitLine[0]);
+                var right = int.Parse(splitLine[1]);
+
+                if (leftList.TryGetValue(left, out int numLeft))
+                {
+                    leftList[left] = ++numLeft;
+                }
+                else
+                {
+                    leftList.Add(left, 1);
+                }
+
+                if (rightList.TryGetValue(int.Parse(splitLine[1]), out int numRight))
+                {
+                    rightList[int.Parse(splitLine[1])] = ++numRight;
+                }
+                else
+                {
+                    rightList.Add(int.Parse(splitLine[1]), 1);
+                }
+            }
+
+            int totalSimilarity = 0;
+            foreach (var number in leftList)
+            {
+                if (rightList.TryGetValue(number.Key, out int numAppearances))
+                {
+                    totalSimilarity += number.Key * number.Value * numAppearances;
+                }
+            }
+
+            return totalSimilarity;
+        }
     }
 }
