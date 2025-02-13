@@ -20,3 +20,9 @@ Console.WriteLine(Day3.TotalMul(FileHelper.ReadWholeFile("day3-1.txt"))); // Ans
 Console.WriteLine(Day3.TotalMul(FileHelper.ReadWholeFile("day3-input.txt"))); // Answer for me is 175615763
 Console.WriteLine(Day3.ToggledMul(FileHelper.ReadWholeFile("day3-2.txt"))); // Answer is 48
 Console.WriteLine(Day3.ToggledMul(FileHelper.ReadWholeFile("day3-input.txt"))); // Answer for me is 74361272
+
+Console.WriteLine("\n_____Day 04_____");
+Console.WriteLine(Day4.WordSearch(FileHelper.ReadLines("day4-1.txt"))); // Answer is 18
+Console.WriteLine(Day4.WordSearch(FileHelper.ReadLines("day4-input.txt"))); // Answer is 2434
+Console.WriteLine(Day4.CrossSearch(FileHelper.ReadLines("day4-1.txt"))); // Answer is 9
+Console.WriteLine(Day4.CrossSearch(FileHelper.ReadLines("day4-input.txt"))); // Answer is 1835
