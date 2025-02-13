@@ -23,6 +23,10 @@ Console.WriteLine(Day3.ToggledMul(FileHelper.ReadWholeFile("day3-input.txt"))); 
 
 Console.WriteLine("\n_____Day 04_____");
 Console.WriteLine(Day4.WordSearch(FileHelper.ReadLines("day4-1.txt"))); // Answer is 18
-Console.WriteLine(Day4.WordSearch(FileHelper.ReadLines("day4-input.txt"))); // Answer is 2434
+Console.WriteLine(Day4.WordSearch(FileHelper.ReadLines("day4-input.txt"))); // Answer for me is 2434
 Console.WriteLine(Day4.CrossSearch(FileHelper.ReadLines("day4-1.txt"))); // Answer is 9
-Console.WriteLine(Day4.CrossSearch(FileHelper.ReadLines("day4-input.txt"))); // Answer is 1835
+Console.WriteLine(Day4.CrossSearch(FileHelper.ReadLines("day4-input.txt"))); // Answer for me is 1835
+
+Console.WriteLine("\n_____Day 05_____");
+Console.WriteLine(Day5.CheckPageOrder(FileHelper.ReadLines("day5-1.txt"))); // Answer is 143
+Console.WriteLine(Day5.CheckPageOrder(FileHelper.ReadLines("day5-input.txt"))); // Answer for me is 7198

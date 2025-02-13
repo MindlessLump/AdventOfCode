@@ -148,9 +148,8 @@ namespace _2024.Problems
                 }
             }
 
-            // Now start from the first letters and try to find the rest of the word
+            // Now start from the middle letters and try to find the rest of the X
             int found = 0;
-            // Start from each first letter
             foreach (var letter in middleLetters)
             {
                 if (letter.X < 1 || letter.X >= file.Length - 1 ||
@@ -164,21 +163,33 @@ namespace _2024.Problems
                 var bottomLeft = file[(int)letter.X + 1][(int)letter.Y - 1];
                 var bottomRight = file[(int)letter.X + 1][(int)letter.Y + 1];
 
+                // M.M
+                // .A.
+                // S.S
                 if (topLeft == oneEdge && topRight == oneEdge &&
                     bottomLeft == otherEdge && bottomRight == otherEdge)
                 {
                     found++;
                 }
+                // M.S
+                // .A.
+                // M.S
                 else if (topLeft == oneEdge && bottomLeft == oneEdge &&
                     topRight == otherEdge && bottomRight == otherEdge)
                 {
                     found++;
                 }
+                // S.S
+                // .A.
+                // M.M
                 else if (topLeft == otherEdge && topRight == otherEdge &&
                     bottomLeft == oneEdge && bottomRight == oneEdge)
                 {
                     found++;
                 }
+                // S.M
+                // .A.
+                // S.M
                 else if (topLeft == otherEdge && bottomLeft == otherEdge &&
                     topRight == oneEdge && bottomRight == oneEdge)
                 {
