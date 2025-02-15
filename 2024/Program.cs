@@ -1,5 +1,6 @@
 ﻿using _2024;
 using _2024.Problems;
+using System.Numerics;
 
 Console.WriteLine("Advent of Code 2024");
 
@@ -32,3 +33,7 @@ Console.WriteLine(Day5.CheckPageOrder(FileHelper.ReadLines("day5-1.txt"))); // A
 Console.WriteLine(Day5.CheckPageOrder(FileHelper.ReadLines("day5-input.txt"))); // Answer for me is 7198
 Console.WriteLine(Day5.ReorderPageOrder(FileHelper.ReadLines("day5-1.txt"))); // Answer is 123
 Console.WriteLine(Day5.ReorderPageOrder(FileHelper.ReadLines("day5-input.txt"))); // Answer for me is 4230
+
+Console.WriteLine("\n_____Day 06_____");
+Console.WriteLine(Day6.CountDistinctPositions(FileHelper.ReadLines("day6-1.txt"))); // Answer is 41
+Console.WriteLine(Day6.CountDistinctPositions(FileHelper.ReadLines("day6-input.txt"))); // Answer for me is 4647
