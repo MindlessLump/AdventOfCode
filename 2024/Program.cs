@@ -30,3 +30,5 @@ Console.WriteLine(Day4.CrossSearch(FileHelper.ReadLines("day4-input.txt"))); // 
 Console.WriteLine("\n_____Day 05_____");
 Console.WriteLine(Day5.CheckPageOrder(FileHelper.ReadLines("day5-1.txt"))); // Answer is 143
 Console.WriteLine(Day5.CheckPageOrder(FileHelper.ReadLines("day5-input.txt"))); // Answer for me is 7198
+Console.WriteLine(Day5.ReorderPageOrder(FileHelper.ReadLines("day5-1.txt"))); // Answer is 123
+Console.WriteLine(Day5.ReorderPageOrder(FileHelper.ReadLines("day5-input.txt"))); // Answer for me is 4230

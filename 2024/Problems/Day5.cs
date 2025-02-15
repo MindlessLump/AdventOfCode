@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace _2024.Problems
+﻿namespace _2024.Problems
 {
     public class Day5
     {
@@ -79,47 +77,15 @@ namespace _2024.Problems
         public static int CheckPageOrder(string[] file)
         {
             // First, iterate through the page ordering rules
-            Dictionary<int, List<int>> orderRules = new();
-            int line = 0;
-            for (line = 0; line < file.Length; line++)
-            {
-                if (!file[line].Contains('|'))
-                    break;
-
-                var pages = file[line].Split('|');
-                if (orderRules.TryGetValue(int.Parse(pages[0]), out var laterPages))
-                {
-                    laterPages.Add(int.Parse(pages[1]));
-                }
-                else
-                {
-                    orderRules.Add(int.Parse(pages[0]), [int.Parse(pages[1])]);
-                }
-            }
+            var ruleSection = file.TakeWhile(line => line.Length > 0);
+            var orderRules = BuildPageOrderRules(ruleSection);
 
             // Now evaluate each update
             int updateTotal = 0;
-            for (line++; line < file.Length; line++)
+            foreach (var report in file.Skip(ruleSection.Count() + 1))
             {
-                var reportPages = file[line].Split(',');
-                bool validUpdate = true;
-                HashSet<int> seenPages = [];
-                foreach (var page in reportPages)
-                {
-                    if (orderRules.TryGetValue(int.Parse(page), out var laterPages))
-                    {
-                        // Ensure that no later pages have been seen yet
-                        if (laterPages.Any(p => seenPages.Contains(p)))
-                        {
-                            validUpdate = false;
-                            break;
-                        }
-                    }
-
-                    seenPages.Add(int.Parse(page));
-                }
-
-                if (validUpdate)
+                var reportPages = report.Split(',');
+                if (IsReportInCorrectOrder(reportPages, orderRules))
                 {
                     int middleIdx = reportPages.Length / 2;
                     updateTotal += int.Parse(reportPages[middleIdx]);
@@ -143,7 +109,87 @@ namespace _2024.Problems
          */
         public static int ReorderPageOrder(string[] file)
         {
-            return 0;
+            // First, iterate through the page ordering rules
+            var ruleSection = file.TakeWhile(line => line.Length > 0);
+            var orderRules = BuildPageOrderRules(ruleSection);
+
+            // Now evaluate each update
+            int updateTotal = 0;
+            foreach (var report in file.Skip(ruleSection.Count() + 1))
+            {
+                var reportPages = report.Split(',');
+                if (!IsReportInCorrectOrder(reportPages, orderRules))
+                {
+                    var newPages = TryCorrectingReportOrder(reportPages, orderRules);
+                    int middleIdx = newPages.Length / 2;
+                    updateTotal += newPages[middleIdx];
+                }
+            }
+
+            return updateTotal;
+        }
+
+        private static Dictionary<int, List<int>> BuildPageOrderRules(IEnumerable<string> rules)
+        {
+            Dictionary<int, List<int>> orderRules = [];
+            foreach (var rule in rules)
+            {
+                var pages = rule.Split('|');
+                if (orderRules.TryGetValue(int.Parse(pages[0]), out var laterPages))
+                {
+                    laterPages.Add(int.Parse(pages[1]));
+                }
+                else
+                {
+                    orderRules.Add(int.Parse(pages[0]), [int.Parse(pages[1])]);
+                }
+            }
+
+            return orderRules;
+        }
+
+        private static bool IsReportInCorrectOrder(IEnumerable<string> reportPages, Dictionary<int, List<int>> orderRules)
+        {
+            bool validUpdate = true;
+            HashSet<int> seenPages = [];
+            foreach (var page in reportPages)
+            {
+                if (orderRules.TryGetValue(int.Parse(page), out var laterPages))
+                {
+                    // Ensure that no later pages have been seen yet
+                    if (laterPages.Any(p => seenPages.Contains(p)))
+                    {
+                        validUpdate = false;
+                        break;
+                    }
+                }
+
+                seenPages.Add(int.Parse(page));
+            }
+
+            return validUpdate;
+        }
+
+        private static int[] TryCorrectingReportOrder(IEnumerable<string> reportPages, Dictionary<int, List<int>> orderRules)
+        {
+            List<int> newOrder = [];
+            foreach (var page in reportPages)
+            {
+                if (orderRules.TryGetValue(int.Parse(page), out var laterPages))
+                {
+                    var shouldHaveAppearedBefore = laterPages.Where(p => newOrder.Contains(p)).Select(p => newOrder.IndexOf(p)).OrderBy(idx => idx);
+                    if (shouldHaveAppearedBefore.Any())
+                    {
+                        // We have found a 'page' that should have appeared before a previous page 'p'
+                        newOrder.Insert(shouldHaveAppearedBefore.First(), int.Parse(page));
+                        continue;
+                    }
+                }
+
+                newOrder.Add(int.Parse(page));
+            }
+
+            return newOrder.ToArray();
         }
     }
 }

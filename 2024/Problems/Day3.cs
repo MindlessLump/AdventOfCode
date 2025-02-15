@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace _2024.Problems
 {
@@ -90,7 +89,7 @@ namespace _2024.Problems
 
                 currIdx = doIndexes[i];
 
-                int distToNextDont = 0;
+                int distToNextDont;
                 if (j < dontIndexes.Count) // There's at least one don't() coming up
                 {
                     distToNextDont = dontIndexes[j] - doIndexes[i];
