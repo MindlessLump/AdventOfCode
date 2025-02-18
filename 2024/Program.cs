@@ -37,3 +37,5 @@ Console.WriteLine(Day5.ReorderPageOrder(FileHelper.ReadLines("day5-input.txt")))
 Console.WriteLine("\n_____Day 06_____");
 Console.WriteLine(Day6.CountDistinctPositions(FileHelper.ReadLines("day6-1.txt"))); // Answer is 41
 Console.WriteLine(Day6.CountDistinctPositions(FileHelper.ReadLines("day6-input.txt"))); // Answer for me is 4647
+Console.WriteLine(Day6.CountPossibleLoops(FileHelper.ReadLines("day6-1.txt"))); // Answer is 6
+Console.WriteLine(Day6.CountPossibleLoops(FileHelper.ReadLines("day6-input.txt"))); // Answer for me is 1723
