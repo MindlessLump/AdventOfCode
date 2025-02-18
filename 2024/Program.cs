@@ -50,3 +50,9 @@ Console.WriteLine(Day8.FindAntinodes(FileHelper.ReadLines("day8-1.txt"))); // An
 Console.WriteLine(Day8.FindAntinodes(FileHelper.ReadLines("day8-input.txt"))); // Answer for me is 228
 Console.WriteLine(Day8.FindHarmonicAntinodes(FileHelper.ReadLines("day8-1.txt"))); // Answer is 34
 Console.WriteLine(Day8.FindHarmonicAntinodes(FileHelper.ReadLines("day8-input.txt"))); // Answer for me is 766
+
+Console.WriteLine("\n_____Day 09_____");
+Console.WriteLine(Day9.FindCompressedChecksum(FileHelper.ReadWholeFile("day9-1.txt"))); // Answer is 1928
+Console.WriteLine(Day9.FindCompressedChecksum(FileHelper.ReadWholeFile("day9-input.txt"))); // Answer for me is 6330095022244
+Console.WriteLine(Day9.FindChecksumWithoutFragmentation(FileHelper.ReadWholeFile("day9-1.txt"))); // Answer is 2858
+Console.WriteLine(Day9.FindChecksumWithoutFragmentation(FileHelper.ReadWholeFile("day9-input.txt"))); // Answer for me is 6359491814941
