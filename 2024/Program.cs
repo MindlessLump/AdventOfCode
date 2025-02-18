@@ -1,6 +1,5 @@
 ﻿using _2024;
 using _2024.Problems;
-using System.Numerics;
 
 Console.WriteLine("Advent of Code 2024");
 
@@ -39,3 +38,9 @@ Console.WriteLine(Day6.CountDistinctPositions(FileHelper.ReadLines("day6-1.txt")
 Console.WriteLine(Day6.CountDistinctPositions(FileHelper.ReadLines("day6-input.txt"))); // Answer for me is 4647
 Console.WriteLine(Day6.CountPossibleLoops(FileHelper.ReadLines("day6-1.txt"))); // Answer is 6
 Console.WriteLine(Day6.CountPossibleLoops(FileHelper.ReadLines("day6-input.txt"))); // Answer for me is 1723
+
+Console.WriteLine("\n_____Day 07_____");
+Console.WriteLine(Day7.FindTrueEquations(FileHelper.ReadLines("day7-1.txt"))); // Answer is 3749
+Console.WriteLine(Day7.FindTrueEquations(FileHelper.ReadLines("day7-input.txt"))); // Answer for me is 2314935962622
+Console.WriteLine(Day7.FindMoreTrueEquations(FileHelper.ReadLines("day7-1.txt"))); // Answer is 11387
+Console.WriteLine(Day7.FindMoreTrueEquations(FileHelper.ReadLines("day7-input.txt"))); // Answer for me is 401477450831495
