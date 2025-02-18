@@ -44,3 +44,9 @@ Console.WriteLine(Day7.FindTrueEquations(FileHelper.ReadLines("day7-1.txt"))); /
 Console.WriteLine(Day7.FindTrueEquations(FileHelper.ReadLines("day7-input.txt"))); // Answer for me is 2314935962622
 Console.WriteLine(Day7.FindMoreTrueEquations(FileHelper.ReadLines("day7-1.txt"))); // Answer is 11387
 Console.WriteLine(Day7.FindMoreTrueEquations(FileHelper.ReadLines("day7-input.txt"))); // Answer for me is 401477450831495
+
+Console.WriteLine("\n_____Day 08_____");
+Console.WriteLine(Day8.FindAntinodes(FileHelper.ReadLines("day8-1.txt"))); // Answer is 14
+Console.WriteLine(Day8.FindAntinodes(FileHelper.ReadLines("day8-input.txt"))); // Answer for me is 228
+Console.WriteLine(Day8.FindHarmonicAntinodes(FileHelper.ReadLines("day8-1.txt"))); // Answer is 34
+Console.WriteLine(Day8.FindHarmonicAntinodes(FileHelper.ReadLines("day8-input.txt"))); // Answer for me is 766
