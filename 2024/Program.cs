@@ -56,3 +56,10 @@ Console.WriteLine(Day9.FindCompressedChecksum(FileHelper.ReadWholeFile("day9-1.t
 Console.WriteLine(Day9.FindCompressedChecksum(FileHelper.ReadWholeFile("day9-input.txt"))); // Answer for me is 6330095022244
 Console.WriteLine(Day9.FindChecksumWithoutFragmentation(FileHelper.ReadWholeFile("day9-1.txt"))); // Answer is 2858
 Console.WriteLine(Day9.FindChecksumWithoutFragmentation(FileHelper.ReadWholeFile("day9-input.txt"))); // Answer for me is 6359491814941
+
+Console.WriteLine("\n_____Day 10_____");
+Console.WriteLine(Day10.FindTrailheadScores(FileHelper.ReadLines("day10-1.txt"))); // Answer is 1
+Console.WriteLine(Day10.FindTrailheadScores(FileHelper.ReadLines("day10-2.txt"))); // Answer is 36
+Console.WriteLine(Day10.FindTrailheadScores(FileHelper.ReadLines("day10-input.txt"))); // Answer for me is 566
+Console.WriteLine(Day10.FindTrailheadRatings(FileHelper.ReadLines("day10-2.txt"))); // Answer is 81
+Console.WriteLine(Day10.FindTrailheadRatings(FileHelper.ReadLines("day10-input.txt"))); // Answer for me is 1324
