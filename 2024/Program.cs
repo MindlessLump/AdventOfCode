@@ -63,3 +63,8 @@ Console.WriteLine(Day10.FindTrailheadScores(FileHelper.ReadLines("day10-2.txt"))
 Console.WriteLine(Day10.FindTrailheadScores(FileHelper.ReadLines("day10-input.txt"))); // Answer for me is 566
 Console.WriteLine(Day10.FindTrailheadRatings(FileHelper.ReadLines("day10-2.txt"))); // Answer is 81
 Console.WriteLine(Day10.FindTrailheadRatings(FileHelper.ReadLines("day10-input.txt"))); // Answer for me is 1324
+
+Console.WriteLine("\n_____Day 11_____");
+Console.WriteLine(Day11.CountStonesAfterBlinks(FileHelper.ReadWholeFile("day11-1.txt"), 25)); // Answer is 55312
+Console.WriteLine(Day11.CountStonesAfterBlinks(FileHelper.ReadWholeFile("day11-input.txt"), 25)); // Answer for me is 200446
+Console.WriteLine(Day11.CountStonesAfterBlinks(FileHelper.ReadWholeFile("day11-input.txt"), 75)); // Answer for me is 238317474993392

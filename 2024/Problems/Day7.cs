@@ -33,13 +33,13 @@ namespace _2024.Problems
 
         Determine which equations could possibly be true. What is their total calibration result?
          */
-        public static Int128 FindTrueEquations(string[] file)
+        public static long FindTrueEquations(string[] file)
         {
-            Int128 trueEquations = 0;
+            long trueEquations = 0;
             foreach (string line in file)
             {
-                var split = line.Split(' ').Select(str => Int128.Parse(str.TrimEnd(':'))).ToList();
-                Int128 target = split[0];
+                var split = line.Split(' ').Select(str => long.Parse(str.TrimEnd(':'))).ToList();
+                long target = split[0];
                 if (SatisfiedByAddAndMult(target, 0, 1, split))
                 {
                     trueEquations += target;
@@ -63,13 +63,13 @@ namespace _2024.Problems
 
         Using your new knowledge of elephant hiding spots, determine which equations could possibly be true. What is their total calibration result?
          */
-        public static Int128 FindMoreTrueEquations(string[] file)
+        public static long FindMoreTrueEquations(string[] file)
         {
-            Int128 trueEquations = 0;
+            long trueEquations = 0;
             foreach (string line in file)
             {
-                var split = line.Split(' ').Select(str => Int128.Parse(str.TrimEnd(':'))).ToList();
-                Int128 target = split[0];
+                var split = line.Split(' ').Select(str => long.Parse(str.TrimEnd(':'))).ToList();
+                long target = split[0];
                 if (SatisfiedByAddMultAndConcat(target, 0, 1, split))
                 {
                     trueEquations += target;
@@ -79,7 +79,7 @@ namespace _2024.Problems
             return trueEquations;
         }
 
-        private static bool SatisfiedByAddAndMult(Int128 target, Int128 runningTotal, int rightValueIndex, List<Int128> values)
+        private static bool SatisfiedByAddAndMult(long target, long runningTotal, int rightValueIndex, List<long> values)
         {
             if (rightValueIndex >= values.Count)
             {
@@ -96,7 +96,7 @@ namespace _2024.Problems
             }
         }
 
-        private static bool SatisfiedByAddMultAndConcat(Int128 target, Int128 runningTotal, int rightValueIndex, List<Int128> values)
+        private static bool SatisfiedByAddMultAndConcat(long target, long runningTotal, int rightValueIndex, List<long> values)
         {
             if (rightValueIndex >= values.Count)
             {
@@ -108,7 +108,7 @@ namespace _2024.Problems
                 // Recursively check the results of either adding or multiplying the next value to the running total
                 var addValue = runningTotal + values[rightValueIndex];
                 var multValue = runningTotal * values[rightValueIndex];
-                var concatValue = Int128.Parse(runningTotal.ToString() + values[rightValueIndex].ToString());
+                var concatValue = long.Parse(runningTotal.ToString() + values[rightValueIndex].ToString());
                 return SatisfiedByAddMultAndConcat(target, addValue, rightValueIndex + 1, values) ||
                     SatisfiedByAddMultAndConcat(target, multValue, rightValueIndex + 1, values) ||
                     SatisfiedByAddMultAndConcat(target, concatValue, rightValueIndex + 1, values);

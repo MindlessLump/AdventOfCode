@@ -47,7 +47,7 @@
 
         Compact the amphipod's hard drive using the process he requested. What is the resulting filesystem checksum?
          */
-        public static Int128 FindCompressedChecksum(string input)
+        public static long FindCompressedChecksum(string input)
         {
             string file = input.Trim();
 
@@ -85,7 +85,7 @@
             }
 
             // Finally, calculate the checksum of the compacted filesystem
-            Int128 checksum = 0;
+            long checksum = 0;
             for (int i = 0; i < filesystem.Count; i++)
             {
                 checksum += i * (filesystem[i] ?? 0);
@@ -112,7 +112,7 @@
 
         Start over, now compacting the amphipod's hard drive using this new method instead. What is the resulting filesystem checksum?
          */
-        public static Int128 FindChecksumWithoutFragmentation(string input)
+        public static long FindChecksumWithoutFragmentation(string input)
         {
             string file = input.Trim();
 
@@ -182,7 +182,7 @@
             }
 
             // Finally, calculate the checksum of the compacted filesystem
-            Int128 checksum = 0;
+            long checksum = 0;
             for (int i = 0; i < filesystem.Count; i++)
             {
                 checksum += i * (filesystem[i] ?? 0);
