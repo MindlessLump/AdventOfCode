@@ -1,6 +1,6 @@
 ﻿namespace _2024.Problems
 {
-    public class Day5
+    public class Day05
     {
         /*
         Safety protocols clearly indicate that new pages for the safety manuals must be printed in a very specific order. The notation X|Y means that if both page number X and page number Y are to be produced as part of an update, page number X must be printed at some point before page number Y.

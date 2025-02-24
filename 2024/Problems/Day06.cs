@@ -2,7 +2,7 @@
 
 namespace _2024.Problems
 {
-    public class Day6
+    public class Day06
     {
         /*
         Maybe you can work out where the guard will go ahead of time so that The Historians can search safely?

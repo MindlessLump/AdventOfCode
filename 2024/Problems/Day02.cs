@@ -1,6 +1,6 @@
 ﻿namespace _2024.Problems
 {
-    public class Day2
+    public class Day02
     {
         /*
         The unusual data (your puzzle input) consists of many reports, one report per line. Each report is a list of numbers called levels that are separated by spaces. For example:

@@ -1,6 +1,6 @@
 ﻿namespace _2024.Problems
 {
-    public class Day1
+    public class Day01
     {
         /*
         Throughout the Chief's office, the historically significant locations are listed not by name but by a unique number called the location ID. To make sure they don't miss anything, The Historians split into two groups, each searching the office and trying to create their own complete list of location IDs.

@@ -2,7 +2,7 @@
 
 namespace _2024.Problems
 {
-    public class Day7
+    public class Day07
     {
         /*
         When you go to cross the bridge, you notice a group of engineers trying to repair it. (Apparently, it breaks pretty frequently.) You won't be able to cross until it's fixed.

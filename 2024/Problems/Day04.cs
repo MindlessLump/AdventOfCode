@@ -2,7 +2,7 @@
 
 namespace _2024.Problems
 {
-    public class Day4
+    public class Day04
     {
         /*
         As the search for the Chief continues, a small Elf who lives on the station tugs on your shirt; she'd like to know if you could help her with her word search (your puzzle input). She only has to find one word: XMAS.

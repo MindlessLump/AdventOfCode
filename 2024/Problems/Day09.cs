@@ -1,6 +1,6 @@
 ﻿namespace _2024.Problems
 {
-    public class Day9
+    public class Day09
     {
         /*
         While The Historians quickly figure out how to pilot these things, you notice an amphipod in the corner struggling with his computer. He's trying to make more contiguous free space by compacting all of the files, but his program isn't working; you offer to help.

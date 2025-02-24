@@ -2,7 +2,7 @@
 
 namespace _2024.Problems
 {
-    public class Day3
+    public class Day03
     {
         /*
         The computer appears to be trying to run a program, but its memory (your puzzle input) is corrupted. All of the instructions have been jumbled up!
