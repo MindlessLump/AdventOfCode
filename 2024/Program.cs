@@ -74,3 +74,8 @@ Console.WriteLine(Day12.CalculateTotalFenceCosts(FileHelper.ReadLines("day12-1.t
 Console.WriteLine(Day12.CalculateTotalFenceCosts(FileHelper.ReadLines("day12-input.txt"))); // Answer for me is 1477924
 Console.WriteLine(Day12.CalculateDiscountedFenceCosts(FileHelper.ReadLines("day12-1.txt"))); // Answer is 1206
 Console.WriteLine(Day12.CalculateDiscountedFenceCosts(FileHelper.ReadLines("day12-input.txt"))); // Answer for me is 841934
+
+Console.WriteLine("\n_____Day 13_____");
+Console.WriteLine(Day13.CalculateTokensForPrizes(FileHelper.ReadLines("day13-1.txt"))); // Answer is 480
+Console.WriteLine(Day13.CalculateTokensForPrizes(FileHelper.ReadLines("day13-input.txt"))); // Answer for me is 26599
+Console.WriteLine(Day13.CalculateTokensForFartherPrizes(FileHelper.ReadLines("day13-input.txt"))); // Answer for me is 106228669504887
