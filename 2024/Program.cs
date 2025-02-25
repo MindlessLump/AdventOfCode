@@ -80,7 +80,14 @@ Console.WriteLine("Advent of Code 2024");
 //Console.WriteLine(Day13.CalculateTokensForPrizes(FileHelper.ReadLines("day13-input.txt"))); // Answer for me is 26599
 //Console.WriteLine(Day13.CalculateTokensForFartherPrizes(FileHelper.ReadLines("day13-input.txt"))); // Answer for me is 106228669504887
 
-Console.WriteLine("\n_____Day 14_____");
-Console.WriteLine(Day14.FindSafetyFactor(FileHelper.ReadLines("day14-1.txt"), 100, 11, 7)); // Answer is 12
-Console.WriteLine(Day14.FindSafetyFactor(FileHelper.ReadLines("day14-input.txt"), 100, 101, 103)); // Answer for me is 218295000
-Console.WriteLine(Day14.FindChristmasTree(FileHelper.ReadLines("day14-input.txt"), 101, 103)); // Answer for me is 6870
+//Console.WriteLine("\n_____Day 14_____");
+//Console.WriteLine(Day14.FindSafetyFactor(FileHelper.ReadLines("day14-1.txt"), 100, 11, 7)); // Answer is 12
+//Console.WriteLine(Day14.FindSafetyFactor(FileHelper.ReadLines("day14-input.txt"), 100, 101, 103)); // Answer for me is 218295000
+//Console.WriteLine(Day14.FindChristmasTree(FileHelper.ReadLines("day14-input.txt"), 101, 103)); // Answer for me is 6870
+
+Console.WriteLine("\n_____Day 15_____");
+Console.WriteLine(Day15.FindGoodsPositioningAfterRobot(FileHelper.ReadLines("day15-1.txt"))); // Answer is 2028
+Console.WriteLine(Day15.FindGoodsPositioningAfterRobot(FileHelper.ReadLines("day15-2.txt"))); // Answer is 10092
+Console.WriteLine(Day15.FindGoodsPositioningAfterRobot(FileHelper.ReadLines("day15-input.txt"))); // Answer for me is 1509074
+Console.WriteLine(Day15.FindWideGoodsPositioningAfterRobot(FileHelper.ReadLines("day15-2.txt"))); // Answer is 9021
+Console.WriteLine(Day15.FindWideGoodsPositioningAfterRobot(FileHelper.ReadLines("day15-input.txt"))); // Answer for me is 1521453
