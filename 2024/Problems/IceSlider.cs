@@ -28,26 +28,32 @@ namespace _2024.Problems
             { Move.Left, new Vector2(0, -1) }, // Left
         };
 
-        public static string SolvePuzzle(string[] file)
+        public static string SolvePuzzle(string[] file, bool automatic = true)
         {
             // First, build the map based on the input file. For the sake of simplicity, we'll assume the map is always square.
-            char[,] iceRink = new char[file.Length, file.Length];
             char[,] goal = new char[file.Length, file.Length];
+            char[,] iceRink = new char[file.Length, file.Length];
             var allPucks = new List<Puck>();
             for (int i = 0; i < file.Length; i++)
             {
                 for (int j = 0; j < file[i].Length; j++)
                 {
                     char position = file[i][j];
-                    iceRink[i, j] = position;
                     if (char.IsUpper(position))
                     {
                         goal[i, j] = char.ToLower(position);
-                        iceRink[i, j] = '.';
                     }
                     else if (!char.IsLower(position))
                     {
                         goal[i, j] = position;
+                        if (position == '#')
+                        {
+                            allPucks.Add(new Puck()
+                            {
+                                Position = new Vector2(i, j),
+                                Color = position,
+                            });
+                        }
                     }
                     else
                     {
@@ -62,90 +68,116 @@ namespace _2024.Problems
             }
 
             var goalString = GetMapString(goal);
+            PrepMap(iceRink, allPucks, file.Length);
+            var mapString = GetMapString(iceRink);
+            var visitedPositions = new Dictionary<string, string>();
 
-            var startString = GetMapString(iceRink);
-            var visitedPositions = new Dictionary<string, List<Move>>();
+            // Use this section instead of the one below if you want to "play" manually.
+            if (!automatic)
+            {
+                var moves = string.Empty;
+                while (mapString != goalString)
+                {
+                    visitedPositions.TryAdd(mapString, moves);
+                    PrintMap(mapString, file.Length);
+                    Console.Write($"Moves so far: {moves}\nInput: ");
 
-            //while (GetMapString(iceRink) != goalString)
-            //{
-            //    var input = Console.ReadLine();
+                    var input = Console.ReadLine();
 
-            //    switch (input)
-            //    {
-            //        case "w":
-            //            TryMovePucks(iceRink, allPucks, visitedPositions, [], new(Move.Up, new Vector2(-1, 0)), file.Length);
-            //            break;
-            //        case "d":
-            //            TryMovePucks(iceRink, allPucks, visitedPositions, [], new(Move.Right, new Vector2(0, 1)), file.Length);
-            //            break;
-            //        case "s":
-            //            TryMovePucks(iceRink, allPucks, visitedPositions, [], new(Move.Down, new Vector2(1, 0)), file.Length);
-            //            break;
-            //        case "a":
-            //            TryMovePucks(iceRink, allPucks, visitedPositions, [], new(Move.Left, new Vector2(0, -1)), file.Length);
-            //            break;
-            //    }
+                    string newString = string.Empty;
+                    switch (input)
+                    {
+                        case "w":
+                            newString = TryMovePucks(mapString, new(Move.Up, new Vector2(-1, 0)), file.Length);
+                            if (!string.IsNullOrEmpty(newString))
+                            {
+                                mapString = newString;
+                                moves = moves + (char)Move.Up;
+                            }
+                            break;
+                        case "d":
+                            newString = TryMovePucks(mapString, new(Move.Right, new Vector2(0, 1)), file.Length);
+                            if (!string.IsNullOrEmpty(newString))
+                            {
+                                mapString = newString;
+                                moves = moves + (char)Move.Right;
+                            }
+                            break;
+                        case "s":
+                            newString = TryMovePucks(mapString, new(Move.Down, new Vector2(1, 0)), file.Length);
+                            if (!string.IsNullOrEmpty(newString))
+                            {
+                                mapString = newString;
+                                moves = moves + (char)Move.Down;
+                            }
+                            break;
+                        case "a":
+                            newString = TryMovePucks(mapString, new(Move.Left, new Vector2(0, -1)), file.Length);
+                            if (!string.IsNullOrEmpty(newString))
+                            {
+                                mapString = newString;
+                                moves = moves + (char)Move.Left;
+                            }
+                            break;
+                    }
+                }
 
-            //    PrintMap(iceRink);
-            //}
-
-            return DoStep(iceRink, allPucks, goalString, visitedPositions, [], file.Length);
+                return moves;
+            }
+            else
+            {
+                var mapQueue = new Queue<(string, string)>();
+                mapQueue.Enqueue((mapString, string.Empty));
+                visitedPositions.Add(mapString, string.Empty);
+                BuildMoveMap(mapQueue, visitedPositions, file.Length);
+                if (visitedPositions.TryGetValue(goalString, out var moves))
+                {
+                    Console.WriteLine($"\n{string.Join('\n', file)}");
+                    Console.WriteLine($"\nCalculated moves to {visitedPositions.Count} possible positions.\nSolution involved {moves.Length} moves.");
+                    return moves;
+                }
+                else
+                {
+                    Console.WriteLine(string.Join('\n', file));
+                    Console.WriteLine($"\nCalculated moves to {visitedPositions.Count} possible positions.\n No solution found.");
+                    return "Failed!";
+                }
+            }
         }
 
-        private static string DoStep(char[,] iceRink, List<Puck> allPucks, string goal, Dictionary<string, List<Move>> visitedPositions, List<Move> currentMoves, int rinkSize)
+        private static void BuildMoveMap(Queue<(string, string)> positionsToTry, Dictionary<string, string> visitedPositions, int rinkSize)
         {
-            var currentMapString = GetMapString(iceRink);
-            PrintMap(iceRink);
-
-            // Base Case 1: We have reached the goal
-            if (string.Equals(currentMapString, goal, StringComparison.InvariantCulture))
+            while (positionsToTry.Count > 0)
             {
-                return GetMovesString(currentMoves);
-            }
+                var (mapString, currentMoves) = positionsToTry.Dequeue();
 
-            // Base Case 2: We have visited this position before
-            if (visitedPositions.TryGetValue(currentMapString, out var originalMoves))
-            {
-                // Unless we somehow got here faster, exit early with an empty string to indicate a failed path
-                if (originalMoves.Count <= currentMoves.Count)
+                //PrintMap(mapString, rinkSize);
+                //Console.WriteLine($"Moves so far: {currentMoves}");
+
+                // Main Case: Try each direction
+                // Do not recurse if...
+                // A. We have visited the new position before
+                // B. No pucks can move in the specified direction
+                foreach (var move in Directions)
                 {
-                    return string.Empty;
-                }
-                // If we're faster, continue with re-mapping the grid from here in the main case below
-            }
-
-            // Main Case: Try each direction
-            string shortestPath = string.Empty;
-            foreach (var move in Directions)
-            {
-                var newRink = TryMovePucks(iceRink, allPucks, move, rinkSize);
-                if (newRink != null)
-                {
-                    visitedPositions.TryAdd(currentMapString, currentMoves);
-
-                    currentMoves.Add(move.Key);
-                    var finalPath = DoStep(newRink, allPucks, goal, visitedPositions, currentMoves, rinkSize);
-                    if (!string.IsNullOrEmpty(finalPath) && (string.IsNullOrEmpty(shortestPath) || finalPath.Length < shortestPath.Length))
+                    var newMapString = TryMovePucks(mapString, move, rinkSize);
+                    if (!string.IsNullOrEmpty(newMapString)) // This covers case B
                     {
-                        shortestPath = finalPath;
+                        if (!visitedPositions.ContainsKey(newMapString)) // This covers case A
+                        {
+                            string newMoves = currentMoves + (char)move.Key;
+                            visitedPositions.Add(newMapString, newMoves);
+                            positionsToTry.Enqueue((newMapString, newMoves));
+                        }
                     }
                 }
             }
-
-            return shortestPath ?? string.Empty;
         }
 
-        // Returns a map if one or more pucks moved, nothing if we're in the same position as before the newMove
-        private static char[,]? TryMovePucks(char[,] iceRink, List<Puck> allPucks, KeyValuePair<Move, Vector2> newMove, int rinkSize)
+        private static string TryMovePucks(string currentMap, KeyValuePair<Move, Vector2> newMove, int rinkSize)
         {
-            char[,] copyRink = new char[rinkSize, rinkSize];
-            for (int i = 0; i < rinkSize; i++)
-            {
-                for (int j = 0; j < rinkSize; j++)
-                {
-                    copyRink[i, j] = iceRink[i, j];
-                }
-            }
+            // First, turn the value type currentMap into a list of pucks
+            var allPucks = GetPucks(currentMap, rinkSize);
 
             IOrderedEnumerable<Puck> sortedPucks;
             if (newMove.Key == Move.Up)
@@ -166,25 +198,25 @@ namespace _2024.Problems
             }
 
             bool moved = false;
-            foreach (var puck in sortedPucks)
+            foreach (var puck in sortedPucks.Where(p => p.Color != '#'))
             {
                 int idx = allPucks.IndexOf(puck);
-                if (TryMovePuck(copyRink, allPucks, idx, newMove.Value, rinkSize))
+                if (TryMovePuck(allPucks, idx, newMove.Value, rinkSize))
                 {
                     moved = true;
                 }
             }
 
-            return moved ? copyRink : null;
+            return moved ? GetMap(allPucks, rinkSize) : string.Empty;
         }
 
         // This method assumes that any pucks it runs into have already moved,
         // so the caller should ensure that pucks are moved in a reasonable order
-        private static bool TryMovePuck(char[,] copyRink, List<Puck> allPucks, int puckIdx, Vector2 direction, int rinkSize)
+        private static bool TryMovePuck(List<Puck> allPucks, int puckIdx, Vector2 direction, int rinkSize)
         {
             int moves = 0;
             var puck = allPucks[puckIdx];
-            while (!AtMaxMoves(moves, puck.Color))
+            while (moves < puck.MaxMoves)
             {
                 var newPos = puck.Position + direction;
                 if (newPos.X < 0 || newPos.Y < 0 || newPos.X >= rinkSize || newPos.Y >= rinkSize)
@@ -193,13 +225,10 @@ namespace _2024.Problems
                 }
 
                 // Make sure the field is clear before proceeding
-                if (copyRink[(int)newPos.X, (int)newPos.Y] == '.')
+                if (!allPucks.Any(p => p.Position == newPos))
                 {
                     // We have succeeded in moving the puck
-                    copyRink[(int)newPos.X, (int)newPos.Y] = puck.Color;
-                    copyRink[(int)puck.Position.X, (int)puck.Position.Y] = '.';
                     puck.Position = newPos;
-                    allPucks[puckIdx] = puck;
                     moves++;
                 }
                 else
@@ -212,16 +241,79 @@ namespace _2024.Problems
             return moves > 0;
         }
 
-        private static bool AtMaxMoves(int moves, char puckType)
+        private static List<Puck> GetPucks(string mapString, int mapSize)
         {
-            return puckType switch
+            List<Puck> pucks = [];
+            for (int idx = 0; idx < mapString.Length; idx++)
             {
-                'r' => moves >= 1,
-                'o' => moves >= 2,
-                'y' => moves >= 3,
-                'b' => moves >= 5,
-                _ => true,
-            };
+                if (mapString[idx] != '.')
+                {
+                    int i = idx / mapSize;
+                    int j = idx % mapSize;
+                    pucks.Add(new Puck()
+                    {
+                        Position = new Vector2(i, j),
+                        Color = mapString[idx],
+                    });
+                }
+            }
+
+            return pucks;
+        }
+
+        private static string GetMap(List<Puck> pucks, int mapSize)
+        {
+            var sb = new StringBuilder();
+            for (int i = 0; i < mapSize; i++)
+            {
+                for (int j = 0; j < mapSize; j++)
+                {
+                    int idx = i * mapSize + j;
+                    var puckAtPos = pucks.SingleOrDefault(p => p.Position.X == i && p.Position.Y == j);
+                    if (puckAtPos != null)
+                    {
+                        sb.Append(puckAtPos.Color);
+                    }
+                    else
+                    {
+                        sb.Append('.');
+                    }
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        private static void PrintMap(string mapString, int mapSize)
+        {
+            var output = new StringBuilder();
+            for (int i = 0; i < mapSize; i++)
+            {
+                for (int j = 0; j < mapSize; j++)
+                {
+                    int idx = i * mapSize + j;
+                    output.Append($" {mapString[idx]}");
+                }
+                output.AppendLine();
+            }
+
+            Console.Write(output.ToString());
+        }
+
+        private static void PrepMap(char[,] map, List<Puck> allPucks, int mapSize)
+        {
+            for (int i = 0; i < mapSize; i++)
+            {
+                for (int j = 0; j < mapSize; j++)
+                {
+                    map[i, j] = '.';
+                }
+            }
+
+            foreach (var puck in allPucks)
+            {
+                map[(int)puck.Position.X, (int)puck.Position.Y] = puck.Color;
+            }
         }
 
         private static string GetMapString(char[,] map)
@@ -234,32 +326,6 @@ namespace _2024.Problems
 
             return output.ToString();
         }
-
-        private static void PrintMap(char[,] map)
-        {
-            var output = new StringBuilder();
-            for (var i = 0; i < map.GetLength(0); i++)
-            {
-                for (var j = 0; j < map.GetLength(1); j++)
-                {
-                    output.Append($" {map[i, j]}");
-                }
-                output.AppendLine();
-            }
-
-            Console.WriteLine(output.ToString());
-        }
-
-        private static string GetMovesString(IEnumerable<Move> moves)
-        {
-            var output = new StringBuilder();
-            foreach (var move in moves)
-            {
-                output.Append((char)move);
-            }
-
-            return output.ToString();
-        }
     }
 
     internal class Puck
@@ -267,6 +333,23 @@ namespace _2024.Problems
         public Vector2 Position { get; set; } = new (-1, -1);
 
         public char Color { get; set; } = '#';
+
+        public bool IsWall { get { return this.Color == '#'; } }
+
+        public int MaxMoves
+        {
+            get
+            {
+                return this.Color switch
+                {
+                    'r' => 1,
+                    'o' => 2,
+                    'y' => 3,
+                    'b' => 5,
+                    _ => 0,
+                };
+            }
+        }
     }
 
     internal enum Move
