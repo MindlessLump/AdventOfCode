@@ -93,6 +93,20 @@ Console.WriteLine("Advent of Code 2024");
 //Console.WriteLine(Day15.FindWideGoodsPositioningAfterRobot(FileHelper.ReadLines("day15-2.txt"))); // Answer is 9021
 //Console.WriteLine(Day15.FindWideGoodsPositioningAfterRobot(FileHelper.ReadLines("day15-input.txt"))); // Answer for me is 1521453
 
-Console.WriteLine("\n_____Day 16_____");
-Console.WriteLine(Day16.ReindeerMazeScore(FileHelper.ReadLines("day16-1.txt"))); // Answer is 7036
+//Console.WriteLine("\n_____Day 16_____");
+//Console.WriteLine(Day16.ReindeerMazeScore(FileHelper.ReadLines("day16-1.txt"))); // Answer is 7036
 //Console.WriteLine(Day16.ReindeerMazeScore(FileHelper.ReadLines("day16-2.txt"))); // Answer is 11048
+
+Console.WriteLine("\n_____Ice Slider_____");
+
+var p1 = new Vector2(0, 1);
+var p2 = new Vector2(2, 2);
+var redOne = new HashSet<Vector2>() { p1, p2 };
+var redTwo = new HashSet<Vector2>() { p2, p1 };
+
+Console.WriteLine($"[{string.Join("; ", redOne)}]");
+Console.WriteLine($"[{string.Join("; ", redTwo)}]");
+Console.WriteLine(redOne == redTwo);
+Console.WriteLine(redOne.SetEquals(redTwo));
+
+Console.WriteLine(IceSlider.SolvePuzzle(FileHelper.ReadLines("iceslider-input.txt"))); // Goal is to beat 140,000 moves
