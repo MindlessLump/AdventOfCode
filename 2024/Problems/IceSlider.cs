@@ -28,7 +28,7 @@ namespace _2024.Problems
             { Move.Left, new Vector2(0, -1) }, // Left
         };
 
-        public static string SolvePuzzle(string[] file, bool automatic = true)
+        public static string SolvePuzzle(string[] file, bool automatic = true, bool exitEarly = false)
         {
             // First, build the map based on the input file. For the sake of simplicity, we'll assume the map is always square.
             char[,] goal = new char[file.Length, file.Length];
@@ -129,7 +129,7 @@ namespace _2024.Problems
                 var mapQueue = new Queue<(string, string)>();
                 mapQueue.Enqueue((mapString, string.Empty));
                 visitedPositions.Add(mapString, string.Empty);
-                BuildMoveMap(mapQueue, visitedPositions, file.Length);
+                BuildMoveMap(mapQueue, visitedPositions, file.Length, goalString, exitEarly);
                 if (visitedPositions.TryGetValue(goalString, out var moves))
                 {
                     Console.WriteLine($"\n{string.Join('\n', file)}");
@@ -145,14 +145,21 @@ namespace _2024.Problems
             }
         }
 
-        private static void BuildMoveMap(Queue<(string, string)> positionsToTry, Dictionary<string, string> visitedPositions, int rinkSize)
+        private static void BuildMoveMap(Queue<(string, string)> positionsToTry, Dictionary<string, string> visitedPositions, int rinkSize, string goalString, bool exitEarly)
         {
             while (positionsToTry.Count > 0)
             {
                 var (mapString, currentMoves) = positionsToTry.Dequeue();
 
+                // Uncomment these lines for debugging as needed
                 //PrintMap(mapString, rinkSize);
                 //Console.WriteLine($"Moves so far: {currentMoves}");
+
+                // Optionally exit early if we've already found the goal
+                if (exitEarly && string.Equals(mapString, goalString, StringComparison.InvariantCulture))
+                {
+                    return;
+                }
 
                 // Main Case: Try each direction
                 // Do not recurse if...

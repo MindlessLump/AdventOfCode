@@ -1,6 +1,5 @@
 ﻿using _2024;
 using _2024.Problems;
-using System.Numerics;
 
 Console.WriteLine("Advent of Code 2024");
 
@@ -98,6 +97,6 @@ Console.WriteLine("Advent of Code 2024");
 //Console.WriteLine(Day16.ReindeerMazeScore(FileHelper.ReadLines("day16-2.txt"))); // Answer is 11048
 
 Console.WriteLine("\n_____Ice Slider_____");
-Console.WriteLine(IceSlider.SolvePuzzle(FileHelper.ReadLines("iceslider-1.txt"))); // Answer is "U"
-Console.WriteLine(IceSlider.SolvePuzzle(FileHelper.ReadLines("iceslider-2.txt"))); // Answer is "DL" or "LD"
-Console.WriteLine(IceSlider.SolvePuzzle(FileHelper.ReadLines("iceslider-input.txt"))); // Goal is to beat 140,000 moves
+Console.WriteLine(IceSlider.SolvePuzzle(FileHelper.ReadLines("iceslider-1.txt"), true, false)); // Answer is "U"
+Console.WriteLine(IceSlider.SolvePuzzle(FileHelper.ReadLines("iceslider-2.txt"), true, false)); // Answer is "DL" or "LD"
+Console.WriteLine(IceSlider.SolvePuzzle(FileHelper.ReadLines("iceslider-input.txt"), true, true)); // Goal is to beat 140,000 moves. Turns out we do it in 24!
