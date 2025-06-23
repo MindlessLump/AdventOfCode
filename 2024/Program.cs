@@ -95,4 +95,7 @@ Console.WriteLine("Advent of Code 2024");
 
 Console.WriteLine("\n_____Day 16_____");
 Console.WriteLine(Day16.ReindeerMazeScore(FileHelper.ReadLines("day16-1.txt"))); // Answer is 7036
-//Console.WriteLine(Day16.ReindeerMazeScore(FileHelper.ReadLines("day16-2.txt"))); // Answer is 11048
+Console.WriteLine(Day16.ReindeerMazeScore(FileHelper.ReadLines("day16-2.txt"))); // Answer is 11048
+Console.WriteLine(Day16.ReindeerMazeScore(FileHelper.ReadLines("day16-input.txt"))); // Answer is 11048
+Console.WriteLine(Day16.ReindeerMazePathLength(FileHelper.ReadLines("day16-1.txt"))); // Answer is 45
+Console.WriteLine(Day16.ReindeerMazePathLength(FileHelper.ReadLines("day16-2.txt"))); // Answer is 64
